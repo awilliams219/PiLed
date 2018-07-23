@@ -13,8 +13,11 @@ def initRPC(port):
 
 def validateColors(colorsToValidate):
     for color in colorsToValidate:
+        if getColorName(color) == "Bright" or getColorName(color) == "All":
+            print('"' + color + '" is not a valid color')
+            exit(2)
         if not hasattr(Colors, getColorName(color)):
-            print(color + " is not a valid color")
+            print('"' + color + '" is not a valid color')
             exit(2)
 
 
@@ -31,21 +34,19 @@ def configureArguments():
     argParser.add_argument('--port', help='Specify HTTP port of LED daemon listener (default 4242)',
                            type=int, default=4242)
     argParser.add_argument('--interval', help='Time between color changes in seconds (default: 0.5).',
-                           type=float, default=0.5)
+                           type=float, default=0.5, metavar="SECONDS")
     argParser.add_argument('--color', help='Set LED to static color', dest="static", type=str)
-    argParser.add_argument('--blink', help='Alternate between two colors', dest='blink_color', nargs=2)
+    argParser.add_argument('--blink', help='Alternate between two colors', dest='blink_color', nargs=2, metavar="COLOR")
     argParser.add_argument('--sequence', help='Show unlimited number of colors in a repeating sequence',
-                           nargs="*", dest='seq_color')
+                           nargs="*", dest='seq_color', metavar="COLOR")
     argParser.add_argument('--off', help='Shut off the LED entirely', action='store_true')
     argParser.add_argument('color', help='Set LED to static color (same as --color)', nargs="?", type=str)
     return argParser.parse_args()
 
+
 def getColorName(color):
     return color.title();
 
-def nullEnd():
-    print("No action specified.  Nothing to do.")
-    exit(1)
 
 args = configureArguments()
 
@@ -78,5 +79,7 @@ if args.seq_color is not None:
     LED.sequence(interval, getSequenceList(args.seq_color))
     exit(0)
 
-nullEnd()
+argParser.print_usage()
+print("\n\nNo action specified.  Nothing to do.  Use -h for usage help.")
+exit(1)
 
