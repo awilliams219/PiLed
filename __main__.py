@@ -61,7 +61,7 @@ def testLED(LED):
         sleep(0.15)
 
 def setInitialStatus(LED):
-    LED.enableBlink(0.2, Colors.Red, Colors.Black)
+    LED.sequence(Colors.All)
 
 def initializeRpc(led):
     global PORT

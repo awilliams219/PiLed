@@ -50,7 +50,7 @@ class StatusLED:
 
         self.Blinking = True
         self.setColor(colors[0])
-        colors.rotate(1)
+        colors.rotate(-1)
         self.Timer = Interval(interval, self.sequence, interval, colors)
 
     def __toggle(self, params):
