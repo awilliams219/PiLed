@@ -26,7 +26,7 @@ class Configuration:
     GPIO = GPIO
 
 
-def main(args = None):
+def main(args=None):
     global LOCKFILE
     signal.signal(signal.SIGINT, destruct)
 
@@ -67,7 +67,7 @@ def initializeRpc(led):
     global PORT
     externalInterface = ExternalInterface(led)
     server = zerorpc.Server(externalInterface)
-    URL = "tcp://0.0.0.0:4242"
+    URL = "tcp://0.0.0.0" + str(PORT)
     server.bind(URL)
     server.run()
 
