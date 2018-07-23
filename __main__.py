@@ -67,7 +67,7 @@ def initializeRpc(led):
     global PORT
     externalInterface = ExternalInterface(led)
     server = zerorpc.Server(externalInterface)
-    URL = "tcp://0.0.0.0" + str(PORT)
+    URL = "tcp://0.0.0.0:" + str(PORT)
     server.bind(URL)
     server.run()
 
