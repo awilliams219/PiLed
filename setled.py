@@ -3,8 +3,6 @@ import zerorpc
 import argparse
 from Data.Colors import Colors
 
-
-
 def initRPC(port):
     c = zerorpc.Client()
     c.connect("tcp://127.0.0.1:" + str(port))
