@@ -2,14 +2,14 @@ PiLed
 -------
 Helpful RGB LED driver for Raspberry Pi
 
-###Why?
+### Why?
 
 When working on my project, I realized there wasn't really a good ready-made solution to manipulating 
 GPIO pins to work an LED.  It occurred to me that this is probably a fairly common use case that 
 requires frequent "reinventing of the wheel" for people working on PI projects.  So, I broke the LED 
 management section out of my project into its own service, and thus PiLed was born.
 
-###Installation
+### Installation
 
 1. Clone the repo wherever you want.  I use /opt/piled, but it's your Pi, so don't feel like you have 
 to do it my way.
@@ -24,7 +24,7 @@ top of \_\_main\_\_.py.  Just sub in whatever port you want to use instead.
 5. Either reboot or start the daemon manually by running `python3 /opt/piled/ &` (adjust path as needed).
 
 
-###Hardware and Wiring
+### Hardware and Wiring
 
 PiLed assumes your RGB LED is connected to PINS 16, 20, and 21, and that you have your LED wired to 
 power on in a digital HIGH state.  I recommend using a common-cathode LED with the cathode connected to
@@ -35,12 +35,12 @@ If you need to change the GPIO pin assignments, you can do so near the top of \_
 to use the GPIO number, NOT the header or pin number.**  If you don't know what this means, google it before 
 proceeding because it's important.  
 
-###Usage
+### Usage
 
 There are two ways to use PiLed:  You can either use it via the command line by calling setled.py, or you 
 can interact with it using the RPC api.  I'll detail both methods below.
 
-#####Command-line tool
+##### Command-line tool
 
 The command line tool is available at /opt/piled/setled.py.  I'd recommend creating an alias for this in your
 .bashrc file, but you do you.
@@ -77,7 +77,7 @@ Available colors are: Red, Blue, Green, Magenta, Yellow, Cyan, and White.  PiLed
 PWM output, so colors are limited to these options.  Additionally, you can specify Black or Off to turn 
 the LED off entirely.
 
-#####RPC Service
+##### RPC Service
 
 PiLed exposes an RPC interface on a local TCP/IP port (default is 4242).  You can hook into that service
 in your own project to manipulate the LED directly without going through the commandline tool.  This 
@@ -94,7 +94,7 @@ change 4242 below to match the new port.
     LED.connect("tcp://127.0.0.1:4242"))
 ```
 
-######RPC Usage
+###### RPC Usage
 
 The LED object will have the following methods available on it:
 
@@ -109,10 +109,10 @@ definitions in other methods below.
 
 `LED.off()` turns off the LED entirely.  This is the same as setting the color to Black or Off.
 
-####Contributing
+#### Contributing
 
 Want to add something?  Tweak something?  Fork the project, make your changes, then shoot me a pull request.  
 
-####License
+#### License
 
 PiLed is released under GPLv3. 
