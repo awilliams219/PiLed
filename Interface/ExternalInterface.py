@@ -30,6 +30,8 @@ class ExternalInterface:
             self.LED.disableBlink()
             self.LED.sequence(interval, colors)
 
+    def getColors(self):
+            return Colors.NamedAll
 
     @staticmethod
     def terminate():
