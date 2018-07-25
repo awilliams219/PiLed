@@ -2,13 +2,6 @@ PiLed
 -------
 Helpful RGB LED driver for Raspberry Pi
 
-### Why?
-
-When working on my project, I realized there wasn't really a good ready-made solution to manipulating 
-GPIO pins to work an LED.  It occurred to me that this is probably a fairly common use case that 
-requires frequent "reinventing of the wheel" for people working on PI projects.  So, I broke the LED 
-management section out of my project into its own service, and thus PiLed was born.
-
 ### Installation
 
 1. Clone the repo wherever you want.  I use /opt/piled, but it's your Pi, so don't feel like you have 
