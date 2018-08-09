@@ -3,7 +3,7 @@ import zerorpc
 import argparse
 from Data.Colors import Colors
 
-def initRPC(port):
+def initRPC():
     c = zerorpc.Client()
     c.connect("ipc:///tmp/piled")
     return c
@@ -46,7 +46,7 @@ def getColorName(color):
 
 args = configureArguments()
 
-LED = initRPC(args.port)
+LED = initRPC()
 interval = args.interval
 
 staticColor = None
