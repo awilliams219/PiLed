@@ -19,9 +19,7 @@ or, if you're feeling froggy, add it to your init config.  Maybe make an upstart
 world.  Make sure to fork the process when you start it since the daemon doesn't currently self-fork.
 (Hint: you can do this in your rc.local by adding `python3 /opt/piled/ &` to the bottom of the file.  
 Obvs, adjust the path to wherever you put PiLed when you cloned it.)
-4. The PiLed daemon defaults to listening on port 4242.  If you need to change this, you can do so at the 
-top of \_\_main\_\_.py.  Just sub in whatever port you want to use instead.
-5. Either reboot or start the daemon manually by running `python3 /opt/piled/ &` (adjust path as needed).
+4. Either reboot or start the daemon manually by running `python3 /opt/piled/ &` (adjust path as needed).
 
 
 ### Hardware and Wiring
@@ -49,15 +47,12 @@ Before beginning, be sure to `chmod +x /opt/piled/setled.py` or you're not going
 
 ###### Command-line options:
 
->setled [-h] [--port PORT] [--interval SECONDS] [--color STATIC]
+>setled [-h]  [--interval SECONDS] [--color STATIC]
               [--blink COLOR COLOR] [--sequence [COLOR [COLOR ...]]] [--off]
               [color]
 
 
 `-h` will display usage information
-
-`--port` allows you to override the port that the RPC service is running on.  This defaults to 4242, but if 
-you've changed the port on the service, you'll need to override that here.
 
 `--interval SECONDS` Allows you to change the timing of the blink and sequence options.  This has no effect
 on the static color setting
@@ -79,7 +74,7 @@ the LED off entirely.
 
 ##### RPC Service
 
-PiLed exposes an RPC interface on a local TCP/IP port (default is 4242).  You can hook into that service
+PiLed exposes an RPC interface on a local IPC connection.  You can hook into that service
 in your own project to manipulate the LED directly without going through the commandline tool.  This 
 has the advantage of not only being simpler, but also faster, as the commandline tool has to connect to
 the RPC service at every execution whereas your application can leave the connection open and eliminate 
@@ -87,11 +82,10 @@ that overhead.
 
 To hook into the service, use PIP to install `zerorpc` into your project.  Add the following code to 
 your project somewhere.  This should only run once, then the LED object should be passed around via dependency injection
-or via a global variable (eww).  If you've changed the port that the PiLed daemon runs on, remember to 
-change 4242 below to match the new port. 
+or via a global variable (eww).  
 ``` 
     LED = zerorpc.Client()
-    LED.connect("tcp://127.0.0.1:4242"))
+    LED.connect("ipc:///tmp/piled"))
 ```
 
 ###### RPC Usage
