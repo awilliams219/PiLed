@@ -7,7 +7,7 @@ from Data.Colors import Colors
 
 def initRPC(port):
     c = zerorpc.Client()
-    c.connect("tcp://127.0.0.1:" + str(port))
+    c.connect("ipc:///tmp/piled")
     return c
 
 
@@ -31,8 +31,6 @@ def getSequenceList(colors):
 def configureArguments():
     global argParser
     argParser = argparse.ArgumentParser('setled', formatter_class=argparse.RawDescriptionHelpFormatter, epilog="Simpler options take precedence: Color > Blink > Sequence\n\nAvailable Colors:\n" + ', '.join(Colors.NamedAll.keys()))
-    argParser.add_argument('--port', help='Specify HTTP port of LED daemon listener (default 4242)',
-                           type=int, default=4242)
     argParser.add_argument('--interval', help='Time between color changes in seconds (default: 0.5).',
                            type=float, default=0.5, metavar="SECONDS")
     argParser.add_argument('--color', help='Set LED to static color', dest="static", type=str)

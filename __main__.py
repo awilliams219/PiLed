@@ -70,7 +70,7 @@ def initializeRpc(led):
     global PORT
     externalInterface = ExternalInterface(led)
     server = zerorpc.Server(externalInterface)
-    URL = "tcp://0.0.0.0:" + str(PORT)
+    URL = "ipc:///tmp/piled"
     server.bind(URL)
     server.run()
 
@@ -79,19 +79,6 @@ def perpetualLoop():
     while True:
         pass
 
-
-def portInUse():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    inUse = False
-
-    try:
-        s.bind(("127.0.0.1", PORT))
-    except socket.error as e:
-        if e.errno == errno.EADDRINUSE:
-            inUse = True
-
-    s.close()
-    return inUse
 
 def issueCommand(args):
     pass
