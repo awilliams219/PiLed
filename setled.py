@@ -3,8 +3,6 @@ import zerorpc
 import argparse
 from Data.Colors import Colors
 
-
-
 def initRPC(port):
     c = zerorpc.Client()
     c.connect("ipc:///tmp/piled")
